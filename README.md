@@ -8,6 +8,8 @@ A JSON Web Token, or [JWT](https://jwt.io/introduction), (pronounced JOT) is a d
 
 You can see a working example of the application at [pizza.cs329.click](https://pizza.cs329.click)
 
+[![CI Pipeline](https://github.com/Juicy-J02/jwt-pizza/actions/workflows/ci.yml/badge.svg)](https://github.com/Juicy-J02/jwt-pizza/actions/workflows/ci.yml)
+
 ## Running locally
 
 1. Fork this repository ![Fork repo](forkRepo.png)
