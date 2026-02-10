@@ -86,6 +86,19 @@ async function basicInit(page: Page) {
   await page.goto('/');
 }
 
+test('register', async ({ page }) => {
+  await page.goto('http://localhost:5173/');
+  await page.getByRole('link', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Full name' }).fill('new user');
+  await page.getByRole('textbox', { name: 'Email address' }).click();
+  await page.getByRole('textbox', { name: 'Email address' }).fill('n@jwt.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('n');
+  await page.getByRole('button', { name: 'Register' }).click();
+
+  await expect(page.getByRole('link', { name: 'nu' })).toBeVisible();
+});
+
 test('login', async ({ page }) => {
   await basicInit(page);
   await page.getByRole('link', { name: 'Login' }).click();
@@ -94,6 +107,19 @@ test('login', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
 
   await expect(page.getByRole('link', { name: 'KC' })).toBeVisible();
+});
+
+test('logout', async ({ page }) => {
+  await basicInit(page);
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Email address' }).fill('d@jwt.com');
+  await page.getByRole('textbox', { name: 'Password' }).fill('a');
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await expect(page.getByRole('link', { name: 'KC' })).toBeVisible();
+  
+  await page.getByRole('link', { name: 'Logout' }).click();
+  await expect(page.locator('#navbar-dark')).toContainText('Login');
 });
 
 test('purchase with login', async ({ page }) => {
@@ -126,4 +152,28 @@ test('purchase with login', async ({ page }) => {
 
   // Check balance
   await expect(page.getByText('0.008')).toBeVisible();
+});
+
+test('about', async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+    await page.getByRole('link', { name: 'About' }).click();
+    await expect(page.getByRole('main')).toContainText('The secret sauce');
+});
+
+test('history', async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+    await page.getByRole('link', { name: 'History' }).click();
+    await expect(page.getByRole('heading')).toContainText('Mama Rucci, my my');
+});
+
+test('not found', async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+     await page.goto('http://localhost:5173/abou');
+    await expect(page.getByRole('heading')).toContainText('Oops');
+});
+
+test('docs', async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+    await page.goto('http://localhost:5173/docs');
+    await expect(page.getByRole('main')).toContainText('JWT Pizza API');
 });
