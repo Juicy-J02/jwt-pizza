@@ -219,6 +219,19 @@ test('franchise dashboard - franchisee', async ({ page }) => {
   await expect(page.getByText('LotaPizza')).toBeVisible();
 });
 
+test('create store', async ({ page }) => {
+  await basicInit(page, Role.Franchisee);
+
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Email address' }).fill('d@jwt.com');
+  await page.getByRole('textbox', { name: 'Password' }).fill('a');
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await page.getByLabel('Global').getByRole('link', { name: 'Franchise' }).click();
+  await page.getByRole('button', { name: 'Create store' }).click();
+  await expect(page.getByRole('heading')).toContainText('Create store');
+});
+
 test('admin dashboard', async ({ page }) => {
   await basicInit(page, Role.Admin);
 
