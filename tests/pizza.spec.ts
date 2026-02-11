@@ -246,6 +246,22 @@ test('create franchise', async ({ page }) => {
   await expect(page.getByRole('heading')).toContainText('Create franchise');
 });
 
+test('close franchise/store', async ({ page }) => {
+  await basicInit(page, Role.Admin);
+
+  await page.getByRole('link', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Email address' }).fill('d@jwt.com');
+  await page.getByRole('textbox', { name: 'Password' }).fill('a');
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await page.getByLabel('Global').getByRole('link', { name: 'Admin' }).click();
+
+  await page.getByRole('row', { name: 'LotaPizza' }).getByRole('button').click();
+  await page.getByRole('button', { name: 'Cancel' }).click();
+  await page.getByRole('row', { name: 'Lehi' }).getByRole('button').click();
+  await page.getByRole('button', { name: 'Cancel' }).click();
+});
+
 test('purchase with login', async ({ page }) => {
   await basicInit(page);
 
