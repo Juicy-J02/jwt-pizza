@@ -138,9 +138,9 @@ export default function AdminDashboard(props: Props) {
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <Button className="w-36 text-xs sm:text-sm sm:w-64" title="Add Franchise" onPress={createFranchise} />
+          <div>
+            <Button className="w-36 text-xs sm:text-sm sm:w-64" title="Add Franchise" onPress={createFranchise} />
+          </div>
         </div>
         <div className="text-start py-8 px-4 sm:px-6 lg:px-8">
           <h3 className="text-neutral-100 text-xl">Users</h3>
