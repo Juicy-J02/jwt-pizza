@@ -4,15 +4,14 @@ test('updateUser', async ({ page }) => {
     const email = `user${Math.floor(Math.random() * 10000)}@jwt.com`;
     await page.goto('/');
     await page.getByRole('link', { name: 'Register' }).click();
-    await page.getByRole('textbox', { name: 'Full name' }).fill('pizza diner');
+    await page.getByRole('textbox', { name: 'Full name' }).fill('john');
     await page.getByRole('textbox', { name: 'Email address' }).fill(email);
     await page.getByRole('textbox', { name: 'Password' }).fill('diner');
     await page.getByRole('button', { name: 'Register' }).click();
 
-     await expect(page.getByRole('link', { name: 'pd' })).toBeVisible();
-    await page.getByRole('link', { name: 'pd' }).click();
+    await page.getByRole('link', { name: 'j' }).click();
 
-    await expect(page.getByRole('main')).toContainText('pizza diner');
+    await expect(page.getByRole('main')).toContainText('john');
 
     await page.getByRole('button', { name: 'Edit' }).click();
     await expect(page.locator('h3')).toContainText('Edit user');
@@ -20,7 +19,7 @@ test('updateUser', async ({ page }) => {
 
     await page.waitForSelector('[role="dialog"].hidden', { state: 'attached' });
 
-    await expect(page.getByRole('main')).toContainText('pizza diner');
+    await expect(page.getByRole('main')).toContainText('john');
 
     await page.getByRole('button', { name: 'Edit' }).click();
     await expect(page.locator('h3')).toContainText('Edit user');
