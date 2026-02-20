@@ -6,7 +6,6 @@ async function basicInit(page: Page, role: Role = Role.Diner) {
   let loggedInUser: User | undefined;
   const validUsers: Record<string, User> = { 'd@jwt.com': { id: '3', name: 'Kai Chen', email: 'd@jwt.com', password: 'a', roles: [{ role: role }] } };
 
-  // Authorize login for the given user
   await page.route('*/**/api/auth', async (route) => {
     const method = route.request().method();
 
@@ -243,6 +242,14 @@ test('admin dashboard', async ({ page }) => {
   await page.getByLabel('Global').getByRole('link', { name: 'Admin' }).click();
 
   await expect(page.locator('h2')).toContainText('Mama Ricci\'s kitchen');
+  await expect(page.getByRole('heading', { name: 'Users' })).toBeVisible();
+  await page.getByRole('textbox', { name: 'Filter names' }).click();
+  await page.getByRole('textbox', { name: 'Filter names' }).fill('a');
+  await page.getByRole('button', { name: 'Submit' }).nth(1).click();
+  await expect(page.getByRole('columnheader', { name: 'Name' })).toBeVisible();
+  await expect(page.getByRole('columnheader', { name: 'Email' })).toBeVisible();
+  await expect(page.getByRole('columnheader', { name: 'Role' })).toBeVisible();
+  await expect(page.getByRole('columnheader', { name: 'Delete' })).toBeVisible();
 });
 
 test('create franchise', async ({ page }) => {
