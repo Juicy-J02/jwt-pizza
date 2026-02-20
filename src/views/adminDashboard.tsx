@@ -160,12 +160,13 @@ export default function AdminDashboard(props: Props) {
                         </tr>
                       </thead>
                       {userList.users.map((user, findex) => {
+                        console.log(user)
                         return (
                           <tbody key={findex} className="divide-y divide-gray-200">
                             <tr className="border-neutral-500 border-t-2">
                               <td className="text-start px-2 whitespace-nowrap text-l font-mono text-orange-600">{user.name}</td>
                               <td className="text-start px-2 whitespace-nowrap text-l font-mono text-orange-600">{user.email}</td>
-                              <td className="text-start px-2 whitespace-nowrap text-l font-mono text-orange-600"> {user.roles}</td>
+                              <td className="text-start px-2 whitespace-nowrap text-l font-mono text-orange-600"> {user.roles?.length ? user.roles.map(r => r.role).join(', ') : 'No Roles'}</td>
                               <td className="px-6 py-1 whitespace-nowrap text-end text-sm font-medium">
                                 <button type="button" className="px-2 py-1 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-1 border-orange-400 text-orange-400  hover:border-orange-800 hover:text-orange-800" onClick={() => deleteUser(user)}>
                                   X
