@@ -47,9 +47,15 @@ export default function AdminDashboard(props: Props) {
     setUserList(await pizzaService.getAllUsers(userPage, 10, `*${filterUserRef.current?.value}*`))
   }
 
-  const filterOnEnter = (event: React.KeyboardEvent<HTMLElement>) => {
+  const filterUsersOnEnter = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key == "Enter") {
       filterUsers();
+    }
+  };
+
+  const filterFranchisesOnEnter = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key == "Enter") {
+      filterFranchises();
     }
   };
 
@@ -117,7 +123,7 @@ export default function AdminDashboard(props: Props) {
                       <tfoot>
                         <tr>
                           <td className="px-1 py-1">
-                            <input type="text" ref={filterFranchiseRef} name="filterFranchise" placeholder="Filter franchises" className="px-2 py-1 text-sm border border-gray-300 rounded-lg" />
+                            <input type="text" ref={filterFranchiseRef} name="filterFranchise" placeholder="Filter franchises" className="px-2 py-1 text-sm border border-gray-300 rounded-lg" onKeyDown={filterFranchisesOnEnter}/>
                             <button type="submit" className="ml-2 px-2 py-1 text-sm font-semibold rounded-lg border border-orange-400 text-orange-400 hover:border-orange-800 hover:text-orange-800" onClick={filterFranchises}>
                               Submit
                             </button>
@@ -179,7 +185,7 @@ export default function AdminDashboard(props: Props) {
                       <tfoot>
                         <tr>
                           <td className="px-1 py-1">
-                            <input type="text" ref={filterUserRef} name="filterUser" placeholder="Filter names" className="px-2 py-1 text-sm border border-gray-300 rounded-lg" onKeyDown={filterOnEnter} />
+                            <input type="text" ref={filterUserRef} name="filterUser" placeholder="Filter names" className="px-2 py-1 text-sm border border-gray-300 rounded-lg" onKeyDown={filterUsersOnEnter} />
                             <button type="submit" className="ml-2 px-2 py-1 text-sm font-semibold rounded-lg border border-orange-400 text-orange-400 hover:border-orange-800 hover:text-orange-800" onClick={filterUsers}>
                               Submit
                             </button>
